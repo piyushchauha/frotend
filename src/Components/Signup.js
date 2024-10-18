@@ -79,9 +79,10 @@ export const Signup = () => {
     }
 
     if (valid) {
-      dispatch(signup({ name, email, password }));
-      navigate("/display1");
+       dispatch(signup({ name, email, password }));
+      navigate("/signin");
     }
+
   };
 
   return (
@@ -91,7 +92,8 @@ export const Signup = () => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        height: "100% ",
+        height: "610px ",
+        
       }}
     >
       <div
@@ -195,9 +197,7 @@ export const Signup = () => {
               size="large"
               sx={{
                 width: 500,
-                maxWidth: "100%",
                 height: "50px",
-                paddingBottom: "14px",
                 backgroundColor: "green",
               }}
             >
@@ -221,7 +221,7 @@ export const Signup = () => {
             </div>
           </div>
           <p style={{ paddingLeft: "250px" }}>
-            Already have an account?<Link to="/signin">Signin</Link>
+            Already have an account?<Link to="/signin" > Signin</Link>
           </p>
           <div style={{ flex: "1" }}>
             <img

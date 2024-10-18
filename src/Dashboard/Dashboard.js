@@ -7,11 +7,13 @@ import { logout } from "Features/UserSlice";
 
 //Mui
 import { Grid2 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 
+//React-Router
+import { useNavigate } from "react-router-dom";
+
+
 export const Display1 = () => {
-  const name = useSelector((state) => state.user.name);
   const email = useSelector((state) => state.user.email);
   const password = useSelector((state) => state.user.password);
   const navigate = useNavigate();
@@ -40,7 +42,6 @@ export const Display1 = () => {
           width: "600px",
         }}
       >
-        {name && <h1>Name: {name}</h1>}
         {email && <h1>Email: {email}</h1>}
         {password && <h1>Password: {password}</h1>}
         <Button

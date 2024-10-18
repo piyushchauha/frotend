@@ -7,21 +7,20 @@ import { BrowserRouter } from 'react-router-dom';
 import {Routes,Route} from 'react-router-dom';
 
 //Dashboard
-import { Display1} from 'Dashboard/Display1';
+import { Display1} from 'Dashboard/Dashboard';
 
+//PrivateRouter
 import PrivateRoute from 'PrivateRouter/PrivateRouter';
 
 function App() {
-
   
-
   return (
     <BrowserRouter>
     <Routes>
       <Route  index path="/" element={<Signup/>}/>
       <Route  exact path="/signin" element={<Signin/>}/>
        <Route 
-          path="/display1" 
+          path="/dashboard" 
           element={
             <PrivateRoute>
               <Display1 />

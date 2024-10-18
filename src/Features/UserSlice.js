@@ -13,15 +13,21 @@ export const userSlice = createSlice({
       state.name = action.payload.name;
       state.email = action.payload.email;
       state.password = action.payload.password;
+      // localStorage.setItem("user", JSON.stringify(action.payload));
+
     },
     signin: (state, action) => {
       state.email = action.payload.email;
       state.password = action.payload.password;
+      // localStorage.setItem("user", JSON.stringify(action.payload));
+
     },
     logout: (state) => {
       state.name = null;
       state.email = null;
       state.password = null;
+      localStorage.removeItem("user");
+
     },
   },
 });

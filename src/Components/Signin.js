@@ -11,6 +11,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 //React-Redux
 import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 //UserSlice
 import { signin } from "Features/UserSlice";
@@ -30,6 +31,8 @@ export const Signin = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const Email = useSelector((state) => state.user.email);
+  const Password = useSelector((state) => state.user.password);
 
   const validateEmail = (email) =>
     /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
@@ -70,7 +73,11 @@ export const Signin = () => {
 
     if (valid) {
       dispatch(signin({ email, password }));
-      navigate("/display1");
+    }
+    if (Email === email && Password === password) {
+      return navigate("/dashboard");
+    } else {
+      return navigate("/");
     }
   };
 
@@ -81,7 +88,8 @@ export const Signin = () => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        height: "100%",
+        height: "600px",
+        paddingTop:"10px"
       }}
     >
       <div
@@ -162,9 +170,7 @@ export const Signin = () => {
               onClick={handleSubmit}
               sx={{
                 width: 500,
-                maxWidth: "100%",
                 height: "50px",
-                paddingBottom: "14px",
                 backgroundColor: "green",
               }}
             >
@@ -201,7 +207,7 @@ export const Signin = () => {
           </div>
         </form>
         <p style={{ paddingLeft: "250px" }}>
-          Don't have an account?<Link to="/">Signup</Link>
+          Don't have an account?<Link to="/"> Signup</Link>
         </p>
         <div style={{ flex: "1" }}>
           <img
