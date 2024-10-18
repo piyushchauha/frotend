@@ -207,7 +207,7 @@ export const Signin = () => {
           </div>
         </form>
         <p style={{ paddingLeft: "250px" }}>
-          Don't have an account?<Link to="/"> Signup</Link>
+          Don't have an account?<Link to="/" > Signup</Link>
         </p>
         <div style={{ flex: "1" }}>
           <img
