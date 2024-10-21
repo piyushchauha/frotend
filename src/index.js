@@ -5,10 +5,10 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 
 //App
-import App from "./App";
+import App from "App";
 
 //ReportWebVitals
-import reportWebVitals from "./reportWebVitals";
+import reportWebVitals from "reportWebVitals";
 
 //Persist-Redux
 import { PersistGate } from "redux-persist/integration/react";
@@ -18,7 +18,7 @@ import { persistStore } from "redux-persist";
 import { Provider } from "react-redux";
 
 //Store
-import Store from "App/Store";
+import Store from "App/Store/Store";
 
 const persistor = persistStore(Store);
 const root = ReactDOM.createRoot(document.getElementById("root"));

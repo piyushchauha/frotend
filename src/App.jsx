@@ -1,16 +1,16 @@
-//Components
-import { Signin } from 'Components/Signin';
-import { Signup } from 'Components/Signup';
+//Pages
+import { Signin } from 'App/Pages/Signin';
+import { Signup } from 'App/Pages/Signup';
 
 //React-Router
 import { BrowserRouter } from 'react-router-dom';
 import {Routes,Route} from 'react-router-dom';
 
 //Dashboard
-import { Dashboard} from 'Dashboard/Dashboard';
+import { Dashboard} from 'App/Dashboard/Dashboard';
 
-//PrivateRouter
-import PrivateRoute from 'PrivateRouter/PrivateRouter';
+//Components
+import PrivateRoute from 'App/Components/PrivateRouter';
 
 function App() {
   
@@ -23,7 +23,7 @@ function App() {
           path="/dashboard" 
           element={
             <PrivateRoute>
-              <Dashboard />
+              <Dashboard/>
             </PrivateRoute>
           } 
         />

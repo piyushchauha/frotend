@@ -3,7 +3,7 @@ import React from "react";
 
 //React-Redux
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "Features/UserSlice";
+import { logout } from "App/Store/UserSlice";
 
 //Mui
 import { Grid2 } from "@mui/material";

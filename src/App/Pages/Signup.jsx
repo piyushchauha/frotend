@@ -6,33 +6,32 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
-//React-router
+//React-Router
 import { Link, useNavigate } from "react-router-dom";
 
 //React-Redux
 import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
 
-//UserSlice
-import { signin } from "Features/UserSlice";
+//Store
+import { signup } from "App/Store/UserSlice";
 
-//Image
-import leaf from "Image/leaf.png";
-import apple1 from "Image/apple1.png";
+//Assets
+import leaf from 'App/Assets/leaf.png';
+import apple1 from "App/Assets/apple1.png";
 
-//GoogleButton
+//React-GoogleButton
 import GoogleButton from "react-google-button";
 
-export const Signin = () => {
+export const Signup = () => {
+  const [name, setname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [nameError, setnameError] = useState("");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const Email = useSelector((state) => state.user.email);
-  const Password = useSelector((state) => state.user.password);
 
   const validateEmail = (email) =>
     /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
@@ -44,6 +43,11 @@ export const Signin = () => {
     setEmail(value);
     setEmailError(validateEmail(value) ? "" : "Invalid Email");
   };
+  const handlenameChange = (e) => {
+    const value = e.target.value;
+    setname(value);
+    setnameError(value ? "" : "Please Enter name");
+  };
 
   const handlePasswordChange = (e) => {
     const value = e.target.value;
@@ -54,7 +58,10 @@ export const Signin = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     let valid = true;
-
+    if (!name) {
+      setnameError("Please enter the name");
+      valid = false;
+    }
     if (!email) {
       setEmailError("Please enter the email");
       valid = false;
@@ -72,24 +79,21 @@ export const Signin = () => {
     }
 
     if (valid) {
-      dispatch(signin({ email, password }));
+       dispatch(signup({ name, email, password }));
+      navigate("/signin");
     }
-    if (Email === email && Password === password) {
-      return navigate("/dashboard");
-    } else {
-      return navigate("/");
-    }
+
   };
 
   return (
     <div
-      className="container"
+      classname="container"
       style={{
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        height: "600px",
-        paddingTop:"10px"
+        height: "610px ",
+        
       }}
     >
       <div
@@ -104,11 +108,35 @@ export const Signin = () => {
         <form onSubmit={handleSubmit}>
           <div style={{ flex: "1", paddingLeft: "100px" }}>
             <h1 style={{ paddingBottom: "10px", fontFamily: "Calibri" }}>
-              Welcome Back
+              Get Started Now
             </h1>
-            <h3 style={{ fontFamily: "Calibri" }}>
-              Enter Validate Credentials to access your account
-            </h3>
+
+            <Box
+              sx={{
+                height: 50,
+                width: 500,
+                maxWidth: "100%",
+                paddingBottom: "50px",
+              }}
+            >
+              <TextField
+                fullWidth
+                label="Name"
+                value={name}
+                onChange={handlenameChange}
+              />
+              <span
+                style={{
+                  display: "block",
+                  textAlign: "left",
+                  color: "red",
+                  textOverflow: "hidden",
+                }}
+              >
+                {nameError}
+              </span>
+            </Box>
+
             <Box
               sx={{
                 height: 50,
@@ -167,20 +195,18 @@ export const Signin = () => {
               type="submit"
               variant="contained"
               size="large"
-              onClick={handleSubmit}
               sx={{
                 width: 500,
                 height: "50px",
                 backgroundColor: "green",
               }}
             >
-              Signin
+              SignUp
             </Button>
             <p style={{ paddingLeft: "80px", paddingBottom: "20px" }}>
               ____________________Or_________________________
             </p>
           </div>
-
           <div style={{ display: "flex" }}>
             <div style={{ paddingLeft: "100px" }}>
               <GoogleButton
@@ -190,39 +216,28 @@ export const Signin = () => {
                 }}
               />
             </div>
-            <div style={{ paddingTop: "1px" }}>
-              <a href="/">
-                {" "}
-                <img
-                  src={apple1}
-                  alt="logo"
-                  style={{
-                    height: "50px",
-                    paddingLeft: "15px",
-                    width: "270px",
-                  }}
-                />
-              </a>
+            <div style={{paddingTop:"1px"}} >
+             <a href="/"> <img src={apple1} alt="logo" style={{height:"49px",paddingLeft:"15px",width:"270px"}}/></a>
             </div>
           </div>
+          <p style={{ paddingLeft: "250px" }}>
+            Already have an account?<Link to="/signin" > Signin</Link>
+          </p>
+          <div style={{ flex: "1" }}>
+            <img
+              src={leaf}
+              alt="logo"
+              style={{
+                height: "90%",
+                width: "50%",
+                position: "absolute",
+                top: "0%",
+                left: "50%",
+                overflow: "hidden",
+              }}
+            />
+          </div>
         </form>
-        <p style={{ paddingLeft: "250px" }}>
-          Don't have an account?<Link to="/" > Signup</Link>
-        </p>
-        <div style={{ flex: "1" }}>
-          <img
-            src={leaf}
-            alt="logo"
-            style={{
-              height: "90%",
-              width: "50%",
-              position: "absolute",
-              top: "0%",
-              left: "50%",
-              overflow: "hidden",
-            }}
-          />
-        </div>
       </div>
     </div>
   );
