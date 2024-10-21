@@ -13,7 +13,7 @@ import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 
 
-export const Display1 = () => {
+export const Dashboard = () => {
   const email = useSelector((state) => state.user.email);
   const password = useSelector((state) => state.user.password);
   const navigate = useNavigate();

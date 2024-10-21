@@ -7,7 +7,7 @@ import { BrowserRouter } from 'react-router-dom';
 import {Routes,Route} from 'react-router-dom';
 
 //Dashboard
-import { Display1} from 'Dashboard/Dashboard';
+import { Dashboard} from 'Dashboard/Dashboard';
 
 //PrivateRouter
 import PrivateRoute from 'PrivateRouter/PrivateRouter';
@@ -23,7 +23,7 @@ function App() {
           path="/dashboard" 
           element={
             <PrivateRoute>
-              <Display1 />
+              <Dashboard />
             </PrivateRoute>
           } 
         />
