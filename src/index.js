@@ -18,9 +18,10 @@ import { persistStore } from "redux-persist";
 import { Provider } from "react-redux";
 
 //Store
-import Store from "App/Store/Store";
+import Store from "Store/Store";
 
 const persistor = persistStore(Store);
+
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

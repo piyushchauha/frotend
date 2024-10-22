@@ -7,7 +7,7 @@ import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
 //Store
-import userReducer from "App/Store/UserSlice";
+import userReducer from "Store/UserSlice";
 
 const persistConf = {
   key: "root",

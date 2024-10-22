@@ -3,7 +3,7 @@ import React from "react";
 
 //React-Redux
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "App/Store/UserSlice";
+import { logout } from "Store/UserSlice";
 
 //Mui
 import { Grid2 } from "@mui/material";
@@ -27,24 +27,10 @@ export const Dashboard = () => {
   };
 
   return (
-    <Grid2
-      container
-      direction="column"
-      alignItems="center"
-      justifyContent="center"
-      sx={{ minHeight: "100vh" }}
+    <Grid2 sx={styles.container}
     >
       <Grid2
-        container
-        direction="column"
-        alignItems="center"
-        justifyContent="center"
-        sx={{
-          border: "1px solid grey",
-          borderRadius: "6px",
-          height: "400px",
-          width: "600px",
-        }}
+       sx={styles.subcontainer}
       >
         {email && <h1>Email: {email}</h1>}
         {password && <h1>Password: {password}</h1>}
@@ -53,13 +39,7 @@ export const Dashboard = () => {
           variant="contained"
           onClick={handle}
           size="large"
-          sx={{
-            width: 500,
-            maxWidth: "100%",
-            height: "50px",
-            paddingBottom: "14px",
-            backgroundColor: "green",
-          }}
+          sx={styles.logoutbutton}
         >
           logout
         </Button>
@@ -67,3 +47,29 @@ export const Dashboard = () => {
     </Grid2>
   );
 };
+const styles={
+  container:{
+    display: 'flex',
+  flexDirection:"column",
+    alignItems:"center",
+    justifyContent:"center",
+    minHeight: "100vh", 
+  },
+   subcontainer:{
+    display: 'flex',
+    flexDirection:"column",
+    alignItems:"center",
+    justifyContent:"center",
+    border: "1px solid grey",
+    borderRadius: "6px",
+    height: "400px",
+    width: "600px",
+   },
+   logoutbutton:{
+    width: 500,
+    maxWidth: "100%",
+    height: "50px",
+    paddingBottom: "14px",
+    backgroundColor: "green",
+  },
+}

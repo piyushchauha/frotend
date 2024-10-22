@@ -1,14 +1,14 @@
 //Pages
-import { Signin } from "App/Pages/Signin";
-import { Signup } from "App/Pages/Signup";
-import { Dashboard } from "App/Pages/Dashboard";
+import { Signin } from "Pages/Signin";
+import { Signup } from "Pages/Signup";
+import { Dashboard } from "Pages/Dashboard";
 
 //React-Router
 import { BrowserRouter } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
 
 //Components
-import PrivateRoute from "App/Components/PrivateRouter";
+import PrivateRoute from "Components/PrivateRouter";
 
 function App() {
   return (

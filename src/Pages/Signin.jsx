@@ -14,18 +14,22 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 
 //Store
-import { signin } from "App/Store/UserSlice";
+import { signin } from "Store/UserSlice";
 
 //Assets
-import leaf from "App/Assets/leaf.png";
-import apple from "App/Assets/apple.png";
+import leaf from "Assets/leaf.png";
+import apple from "Assets/apple.png";
 
 //GoogleButton
 import GoogleButton from "react-google-button";
 
 //Utils
-import { validateEmail } from "App/Utils/validateEmail";
-import { validatePassword } from "App/Utils/validatePassword";
+import { validateEmail } from "Utils/validateEmail";
+import { validatePassword } from "Utils/validatePassword";
+
+//Messages
+import { Messages } from "Constants/Messages";
+
 
 export const Signin = () => {
   const dispatch = useDispatch();
@@ -42,13 +46,15 @@ export const Signin = () => {
   const handleEmailChange = (e) => {
     const value = e.target.value;
     setEmail(value);
-    setEmailError(validateEmail(value) ? "" : "Invalid Email");
+    setEmailError(validateEmail(value) ? "" : Messages.InvalidEmailError);
   };
 
   const handlePasswordChange = (e) => {
     const value = e.target.value;
     setPassword(value);
-    setPasswordError(validatePassword(value) ? "" : "Invalid password");
+    setPasswordError(
+      validatePassword(value) ? "" : Messages.InvalidPasswordError
+    );
   };
 
   const handleSubmit = (e) => {
@@ -56,18 +62,18 @@ export const Signin = () => {
     let valid = true;
 
     if (!email) {
-      setEmailError("Please enter the email");
+      setEmailError(Messages.EmptyEmailError);
       valid = false;
     } else if (!validateEmail(email)) {
-      setEmailError("Invalid Email");
+      setEmailError(Messages.InvalidEmailError);
       valid = false;
     }
 
     if (!password) {
-      setPasswordError("Please enter the password");
+      setPasswordError(Messages.EmptyPasswordError);
       valid = false;
     } else if (!validatePassword(password)) {
-      setPasswordError("Invalid password");
+      setPasswordError(Messages.InvalidPasswordError);
       valid = false;
     }
 
