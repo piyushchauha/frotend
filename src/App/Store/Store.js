@@ -14,10 +14,16 @@ const persistConf = {
   version: 1,
   storage,
 };
+
+
 const reducer = combineReducers({
   user: userReducer,
 });
+
+
 const persistRed = persistReducer(persistConf, reducer);
+
+
 export default configureStore({
   reducer: persistRed,
 });

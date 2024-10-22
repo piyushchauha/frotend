@@ -8,20 +8,24 @@ export const userSlice = createSlice({
     email: null,
     password: null,
   },
+
+
   reducers: {
     signup: (state, action) => {
       state.name = action.payload.name;
       state.email = action.payload.email;
       state.password = action.payload.password;
-      // localStorage.setItem("user", JSON.stringify(action.payload));
 
     },
+
+
     signin: (state, action) => {
       state.email = action.payload.email;
       state.password = action.payload.password;
-      // localStorage.setItem("user", JSON.stringify(action.payload));
 
     },
+
+
     logout: (state) => {
       state.name = null;
       state.email = null;
@@ -31,5 +35,7 @@ export const userSlice = createSlice({
     },
   },
 });
+
+
 export const { signup, signin, logout } = userSlice.actions;
 export default userSlice.reducer;

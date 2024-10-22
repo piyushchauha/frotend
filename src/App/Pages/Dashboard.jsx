@@ -14,14 +14,18 @@ import { useNavigate } from "react-router-dom";
 
 
 export const Dashboard = () => {
-  const email = useSelector((state) => state.user.email);
-  const password = useSelector((state) => state.user.password);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const email = useSelector((state) => state.user.email);
+  const password = useSelector((state) => state.user.password);
+  
   const handle = (e) => {
     dispatch(logout());
     navigate("/");
   };
+
   return (
     <Grid2
       container

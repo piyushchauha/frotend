@@ -21,6 +21,7 @@ import { Provider } from "react-redux";
 import Store from "App/Store/Store";
 
 const persistor = persistStore(Store);
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={Store}>
