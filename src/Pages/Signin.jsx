@@ -5,6 +5,8 @@ import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import { ToggleButton } from "@mui/material";
+import { ToggleButtonGroup } from "@mui/material";
 
 //React-router
 import { Link, useNavigate } from "react-router-dom";
@@ -27,18 +29,25 @@ import GoogleButton from "react-google-button";
 import { validateEmail } from "Utils/validateEmail";
 import { validatePassword } from "Utils/validatePassword";
 
-//Messages
-import { Messages } from "Constants/Messages";
+
+//Locales
+import i18n from "Locales/i18n";
+
+//React-i18next
+import { useTranslation } from "react-i18next";
 
 
 export const Signin = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { t } = useTranslation();
+
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [language, setlanguage] = useState("en");
 
   const Email = useSelector((state) => state.user.email);
   const Password = useSelector((state) => state.user.password);
@@ -46,15 +55,13 @@ export const Signin = () => {
   const handleEmailChange = (e) => {
     const value = e.target.value;
     setEmail(value);
-    setEmailError(validateEmail(value) ? "" : Messages.InvalidEmailError);
+    setEmailError(validateEmail(value) ? "" : t("InvalidEmailError"));
   };
 
   const handlePasswordChange = (e) => {
     const value = e.target.value;
     setPassword(value);
-    setPasswordError(
-      validatePassword(value) ? "" : Messages.InvalidPasswordError
-    );
+    setPasswordError(validatePassword(value) ? "" : t("InvalidPasswordError"));
   };
 
   const handleSubmit = (e) => {
@@ -62,18 +69,18 @@ export const Signin = () => {
     let valid = true;
 
     if (!email) {
-      setEmailError(Messages.EmptyEmailError);
+      setEmailError(t("EmptyEmailError"));
       valid = false;
     } else if (!validateEmail(email)) {
-      setEmailError(Messages.InvalidEmailError);
+      setEmailError(t("InvalidEmailError"));
       valid = false;
     }
 
     if (!password) {
-      setPasswordError(Messages.EmptyPasswordError);
+      setPasswordError(t("EmptyPasswordError"));
       valid = false;
     } else if (!validatePassword(password)) {
-      setPasswordError(Messages.InvalidPasswordError);
+      setPasswordError(t("InvalidPasswordError"));
       valid = false;
     }
 
@@ -87,19 +94,41 @@ export const Signin = () => {
       return navigate("/");
     }
   };
+  const handlelanguage = (event, newlanguage) => {
+    if (language === "en") {
+      i18n.changeLanguage("fr");
+    } else if (language === "fr") {
+      i18n.changeLanguage("en");
+    }
+    setlanguage(newlanguage);
+  };
+
 
   return (
     <div>
       <form onSubmit={handleSubmit}>
         <div style={styles.subcontainer}>
-          <h1 style={styles.heading1}>Welcome Back</h1>
-          <h3 style={styles.heading2}>
-            Enter Validate Credentials to access your account
-          </h3>
+          <div style={styles.heading1div}><div style={styles.welcome}>
+            <h1 style={styles.heading1}>{t("WelcomeBack")}</h1></div>
+            <div style={styles.lngbutton}>
+              <ToggleButtonGroup
+                color="primary"
+                value={language}
+                exclusive
+                onChange={handlelanguage}
+                aria-label="Platform"
+              >
+                <ToggleButton value="en">English</ToggleButton>
+                <ToggleButton value="fr">French</ToggleButton>
+              </ToggleButtonGroup>
+             
+            </div>
+          </div>
+          <h3 style={styles.heading2}>{t("Entervalidate")}</h3>
           <Box sx={styles.box}>
             <TextField
               fullWidth
-              label="Email"
+              label={t("email")}
               value={email}
               onChange={handleEmailChange}
             />
@@ -108,7 +137,7 @@ export const Signin = () => {
           <Box sx={styles.box}>
             <TextField
               fullWidth
-              label="Password"
+              label={t("password")}
               type="password"
               value={password}
               onChange={handlePasswordChange}
@@ -125,10 +154,10 @@ export const Signin = () => {
             onClick={handleSubmit}
             sx={styles.signinbutton}
           >
-            Signin
+            {t("signin")}
           </Button>
           <p style={styles.ordiv}>
-            ____________________Or_________________________
+            ____________________{t("or")}_________________________
           </p>
         </div>
 
@@ -149,7 +178,7 @@ export const Signin = () => {
         </div>
       </form>
       <p style={styles.linkdiv}>
-        Don't have an account?<Link to="/"> Signup</Link>
+        {t("noaccount")} <Link to="/">{t("signup")}</Link>
       </p>
       <div>
         <img src={leaf} alt="logo" style={styles.img1} />
@@ -234,4 +263,26 @@ const styles = {
   buttondiv: {
     paddingLeft: "100px",
   },
+
+  heading1div: {
+    display: "flex",
+  },
+
+  lngbutton: {
+    paddingTop: "15px",
+    // paddingLeft: "200px",
+  },
+
+  french: {
+    margin: "10px",
+    backgroundColor: "green",
+  },
+
+  english: {
+    backgroundColor: "green",
+  },
+
+  welcome:{
+  width:"400px",
+  }
 };

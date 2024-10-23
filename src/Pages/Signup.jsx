@@ -1,11 +1,12 @@
 //React
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 //Mui
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-
+import { ToggleButton } from "@mui/material";
+import { ToggleButtonGroup } from "@mui/material";
 //React-Router
 import { Link, useNavigate } from "react-router-dom";
 
@@ -26,13 +27,18 @@ import GoogleButton from "react-google-button";
 import { validateEmail } from "Utils/validateEmail";
 import { validatePassword } from "Utils/validatePassword";
 
-//Messages
-import { Messages } from "Constants/Messages";
+//Locales
+import i18n from "Locales/i18n";
+
+//React-i18n
+import { useTranslation } from "react-i18next";
 
 
 export const Signup = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { t } = useTranslation();
 
   const [name, setname] = useState("");
   const [email, setEmail] = useState("");
@@ -40,46 +46,56 @@ export const Signup = () => {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [nameError, setnameError] = useState("");
+  const [language, setlanguage] = useState("en");
+
 
   const handleEmailChange = (e) => {
     const value = e.target.value;
     setEmail(value);
-    setEmailError(validateEmail(value) ? "" : Messages.InvalidEmailError);
+    setEmailError(validateEmail(value) ? "" : t("InvalidEmailError"));
   };
 
   const handlenameChange = (e) => {
     const value = e.target.value;
     setname(value);
-    setnameError(value ? "" : Messages.EmptyNameError);
+    setnameError(value ? "" : t("EmptyNameError"));
   };
 
   const handlePasswordChange = (e) => {
     const value = e.target.value;
     setPassword(value);
-    setPasswordError(validatePassword(value) ? "" : Messages.InvalidPasswordError);
+    setPasswordError(validatePassword(value) ? "" : t("InvalidPasswordError"));
   };
 
+  const handlelanguage = (event, newlangauge) => {
+    if (language === "en") {
+      i18n.changeLanguage("fr");
+    } else {
+      i18n.changeLanguage("en");
+    }
+    setlanguage(newlangauge);
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     let valid = true;
     if (!name) {
-      setnameError(Messages.EmptyNameError);
+      setnameError(t("EmptyNameError"));
       valid = false;
     }
 
     if (!email) {
-      setEmailError(Messages.EmptyEmailError);
+      setEmailError(t("EmptyEmailError"));
       valid = false;
     } else if (!validateEmail(email)) {
-      setEmailError(Messages.InvalidEmailError);
+      setEmailError(t("InvalidEmailError"));
       valid = false;
     }
 
     if (!password) {
-      setPasswordError(Messages.EmptyPasswordError);
+      setPasswordError(t("EmptyPasswordError"));
       valid = false;
     } else if (!validatePassword(password)) {
-      setPasswordError(Messages.InvalidPasswordError);
+      setPasswordError(t("InvalidPasswordError"));
       valid = false;
     }
 
@@ -94,12 +110,25 @@ export const Signup = () => {
       <div style={styles.subcontainer}>
         <form onSubmit={handleSubmit}>
           <div style={styles.heading1}>
-            <h1 style={styles.heading2}>Get Started Now</h1>
-
+            <div style={styles.lngbutton}><div style={styles.welcome}>
+              <h1 style={styles.heading2}>{t("started")}</h1></div>
+              <div style={styles.toggle}>
+                <ToggleButtonGroup
+                  color="primary"
+                  value={language}
+                  exclusive
+                  onChange={handlelanguage}
+                  aria-label="Platform"
+                >
+                  <ToggleButton value="en">English</ToggleButton>
+                  <ToggleButton value="fr">French</ToggleButton>
+                </ToggleButtonGroup>
+              </div>
+            </div>
             <Box sx={styles.box}>
               <TextField
                 fullWidth
-                label="Name"
+                label={t("name")}
                 value={name}
                 onChange={handlenameChange}
               />
@@ -109,7 +138,7 @@ export const Signup = () => {
             <Box sx={styles.box}>
               <TextField
                 fullWidth
-                label="Email"
+                label={t("email")}
                 value={email}
                 onChange={handleEmailChange}
               />
@@ -118,7 +147,7 @@ export const Signup = () => {
             <Box sx={styles.box}>
               <TextField
                 fullWidth
-                label="Password"
+                label={t("password")}
                 type="password"
                 value={password}
                 onChange={handlePasswordChange}
@@ -134,10 +163,10 @@ export const Signup = () => {
               size="large"
               sx={styles.signupbutton}
             >
-              SignUp
+              {t("signup")}
             </Button>
             <p style={styles.ordiv}>
-              ____________________Or_________________________
+              ____________________{t("or")}_________________________
             </p>
           </div>
           <div style={styles.footer}>
@@ -151,13 +180,13 @@ export const Signup = () => {
             </div>
             <div style={styles.img2div1}>
               <a href="/">
-                {" "}
                 <img src={apple} alt="logo" style={styles.img2} />
               </a>
             </div>
           </div>
           <p style={styles.linkdiv}>
-            Already have an account?<Link to="/signin"> Signin</Link>
+            {t("noaccount")}
+            <Link to="/signin">{t("signin")}</Link>
           </p>
           <div>
             <img src={leaf} alt="logo" style={styles.img1} />
@@ -252,4 +281,16 @@ const styles = {
     left: "50%",
     overflow: "hidden",
   },
+
+  lngbutton: {
+    display: "flex",
+  },
+
+  toggle: {
+    paddingTop: "20px",
+  },
+
+  welcome:{
+    width:"400px",
+  }
 };
