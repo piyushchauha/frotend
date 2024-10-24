@@ -1,5 +1,5 @@
 //React
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 //Mui
 import Box from "@mui/material/Box";
@@ -17,10 +17,11 @@ import { useSelector } from "react-redux";
 
 //Store
 import { signin } from "Store/UserSlice";
+import { setlanguage } from "Store/UserSlice";
 
 //Assets
-import leaf from "Assets/leaf.png";
-import apple from "Assets/apple.png";
+import leaf from "Assets/Images/leaf.png";
+import apple from "Assets/Images/apple.png";
 
 //GoogleButton
 import GoogleButton from "react-google-button";
@@ -29,28 +30,33 @@ import GoogleButton from "react-google-button";
 import { validateEmail } from "Utils/validateEmail";
 import { validatePassword } from "Utils/validatePassword";
 
-
 //Locales
 import i18n from "Locales/i18n";
 
 //React-i18next
 import { useTranslation } from "react-i18next";
 
+//App.css
+import "App.css";
 
 export const Signin = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { t } = useTranslation();
 
+  const { t } = useTranslation();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  const [language, setlanguage] = useState("en");
 
   const Email = useSelector((state) => state.user.email);
   const Password = useSelector((state) => state.user.password);
+  const language=useSelector((state)=>state.user.language);
+
+  useEffect(() => {
+    i18n.changeLanguage(language);
+  }, [language]);
 
   const handleEmailChange = (e) => {
     const value = e.target.value;
@@ -94,22 +100,26 @@ export const Signin = () => {
       return navigate("/");
     }
   };
-  const handlelanguage = (event, newlanguage) => {
-    if (language === "en") {
-      i18n.changeLanguage("fr");
-    } else if (language === "fr") {
-      i18n.changeLanguage("en");
-    }
-    setlanguage(newlanguage);
-  };
 
+  const handlelanguage = (event, newlanguage) => {
+    if (newlanguage === "en") {
+      i18n.changeLanguage("en");
+      
+    } else if (newlanguage === "fr") {
+      i18n.changeLanguage("fr");
+    }
+
+    dispatch(setlanguage(newlanguage));
+  };
 
   return (
     <div>
       <form onSubmit={handleSubmit}>
         <div style={styles.subcontainer}>
-          <div style={styles.heading1div}><div style={styles.welcome}>
-            <h1 style={styles.heading1}>{t("WelcomeBack")}</h1></div>
+          <div style={styles.heading1div}>
+            <div style={styles.welcome}>
+              <h1 style={styles.heading1}>{t("WelcomeBack")}</h1>
+            </div>
             <div style={styles.lngbutton}>
               <ToggleButtonGroup
                 color="primary"
@@ -121,7 +131,6 @@ export const Signin = () => {
                 <ToggleButton value="en">English</ToggleButton>
                 <ToggleButton value="fr">French</ToggleButton>
               </ToggleButtonGroup>
-             
             </div>
           </div>
           <h3 style={styles.heading2}>{t("Entervalidate")}</h3>
@@ -189,7 +198,7 @@ export const Signin = () => {
 const styles = {
   heading1: {
     paddingBottom: "10px",
-    fontFamily: "Calibri",
+    fontFamily: "Arima",
   },
 
   heading2: {
@@ -282,7 +291,7 @@ const styles = {
     backgroundColor: "green",
   },
 
-  welcome:{
-  width:"400px",
-  }
+  welcome: {
+    width: "400px",
+  },
 };

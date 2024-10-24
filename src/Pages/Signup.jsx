@@ -1,5 +1,5 @@
 //React
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 
 //Mui
 import Box from "@mui/material/Box";
@@ -7,18 +7,20 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { ToggleButton } from "@mui/material";
 import { ToggleButtonGroup } from "@mui/material";
+
 //React-Router
 import { Link, useNavigate } from "react-router-dom";
 
 //React-Redux
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 //Store
 import { signup } from "Store/UserSlice";
+import { setlanguage } from "Store/UserSlice";
 
 //Assets
-import leaf from "Assets/leaf.png";
-import apple from "Assets/apple.png";
+import leaf from "Assets/Images/leaf.png";
+import apple from "Assets/Images/apple.png";
 
 //React-GoogleButton
 import GoogleButton from "react-google-button";
@@ -33,7 +35,6 @@ import i18n from "Locales/i18n";
 //React-i18n
 import { useTranslation } from "react-i18next";
 
-
 export const Signup = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -46,9 +47,12 @@ export const Signup = () => {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [nameError, setnameError] = useState("");
-  const [language, setlanguage] = useState("en");
+  
+  const language=useSelector((state)=>state.user.language);
 
-
+  useEffect(() => {
+    i18n.changeLanguage(language);
+  }, [language]);
   const handleEmailChange = (e) => {
     const value = e.target.value;
     setEmail(value);
@@ -67,14 +71,6 @@ export const Signup = () => {
     setPasswordError(validatePassword(value) ? "" : t("InvalidPasswordError"));
   };
 
-  const handlelanguage = (event, newlangauge) => {
-    if (language === "en") {
-      i18n.changeLanguage("fr");
-    } else {
-      i18n.changeLanguage("en");
-    }
-    setlanguage(newlangauge);
-  };
   const handleSubmit = (e) => {
     e.preventDefault();
     let valid = true;
@@ -105,13 +101,24 @@ export const Signup = () => {
     }
   };
 
+  const handlelanguage = (event, newlanguage) => {
+    if (newlanguage === "en") {
+      i18n.changeLanguage("en");
+    } else if (newlanguage === "fr") {
+      i18n.changeLanguage("fr");
+    }
+   dispatch(setlanguage(newlanguage));
+
+  };
   return (
     <div style={styles.container}>
       <div style={styles.subcontainer}>
         <form onSubmit={handleSubmit}>
           <div style={styles.heading1}>
-            <div style={styles.lngbutton}><div style={styles.welcome}>
-              <h1 style={styles.heading2}>{t("started")}</h1></div>
+            <div style={styles.lngbutton}>
+              <div style={styles.welcome}>
+                <h1 style={styles.heading2}>{t("started")}</h1>
+              </div>
               <div style={styles.toggle}>
                 <ToggleButtonGroup
                   color="primary"
@@ -186,7 +193,7 @@ export const Signup = () => {
           </div>
           <p style={styles.linkdiv}>
             {t("noaccount")}
-            <Link to="/signin">{t("signin")}</Link>
+            <Link to="/signin"> {t("signin")}</Link>
           </p>
           <div>
             <img src={leaf} alt="logo" style={styles.img1} />
@@ -290,7 +297,7 @@ const styles = {
     paddingTop: "20px",
   },
 
-  welcome:{
-    width:"400px",
-  }
+  welcome: {
+    width: "400px",
+  },
 };

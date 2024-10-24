@@ -7,6 +7,7 @@ export const userSlice = createSlice({
     name: null,
     email: null,
     password: null,
+    language:"en",
   },
 
 
@@ -24,18 +25,21 @@ export const userSlice = createSlice({
       state.password = action.payload.password;
 
     },
-
+     
+    setlanguage:(state,action)=>{
+      state.language = action.payload;
+    },
 
     logout: (state) => {
       state.name = null;
       state.email = null;
       state.password = null;
-      localStorage.removeItem("user");
-
+     
     },
   },
 });
 
 
-export const { signup, signin, logout } = userSlice.actions;
+export const { signup, signin, logout ,setlanguage} = userSlice.actions;
+
 export default userSlice.reducer;

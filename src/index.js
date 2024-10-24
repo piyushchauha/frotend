@@ -25,7 +25,7 @@ const persistor = persistStore(Store);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <Provider store={Store}>
+  <Provider loading={null} store={Store}>
     <PersistGate persistor={persistor}>
       <App />
     </PersistGate>
