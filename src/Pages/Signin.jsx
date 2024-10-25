@@ -52,7 +52,7 @@ export const Signin = () => {
 
   const Email = useSelector((state) => state.user.email);
   const Password = useSelector((state) => state.user.password);
-  const language=useSelector((state)=>state.user.language);
+  const language = useSelector((state) => state.user.language);
 
   useEffect(() => {
     i18n.changeLanguage(language);
@@ -104,7 +104,6 @@ export const Signin = () => {
   const handlelanguage = (event, newlanguage) => {
     if (newlanguage === "en") {
       i18n.changeLanguage("en");
-      
     } else if (newlanguage === "fr") {
       i18n.changeLanguage("fr");
     }
@@ -113,99 +112,106 @@ export const Signin = () => {
   };
 
   return (
-    <div>
+    <div role="form">
       <form onSubmit={handleSubmit}>
-        <div style={styles.subcontainer}>
-          <div style={styles.heading1div}>
-            <div style={styles.welcome}>
-              <h1 style={styles.heading1}>{t("WelcomeBack")}</h1>
+        <div style={styles.innerContainer}>
+          <div style={styles.header}>
+            <div style={styles.welcomeText}>
+              <h1 style={styles.title}>{t("WelcomeBack")}</h1>
             </div>
-            <div style={styles.lngbutton}>
+            <div style={styles.LanguageToggle}>
               <ToggleButtonGroup
                 color="primary"
                 value={language}
                 exclusive
                 onChange={handlelanguage}
-                aria-label="Platform"
+                aria-label="LanguageToggle"
               >
                 <ToggleButton value="en">English</ToggleButton>
                 <ToggleButton value="fr">French</ToggleButton>
               </ToggleButtonGroup>
             </div>
           </div>
-          <h3 style={styles.heading2}>{t("Entervalidate")}</h3>
-          <Box sx={styles.box}>
+          <h3 style={styles.instruction}>{t("Entervalidate")}</h3>
+          <Box sx={styles.inputBox}>
             <TextField
               fullWidth
               label={t("email")}
+              aria-label="email"
               value={email}
               onChange={handleEmailChange}
             />
-            <span style={styles.error}>{emailError}</span>
+            <span style={styles.errorText} aria-label="emailerror">
+              {emailError}
+            </span>
           </Box>
-          <Box sx={styles.box}>
+          <Box sx={styles.inputBox}>
             <TextField
               fullWidth
               label={t("password")}
+              aria-label="password"
               type="password"
               value={password}
               onChange={handlePasswordChange}
             />
-            <span style={styles.error}>{passwordError}</span>
+            <span style={styles.errorText} aria-label="passworderror">
+              {passwordError}
+            </span>
           </Box>
         </div>
 
-        <div style={styles.buttondiv}>
+        <div style={styles.buttonContainer}>
           <Button
             type="submit"
             variant="contained"
             size="large"
             onClick={handleSubmit}
-            sx={styles.signinbutton}
+            sx={styles.signinButton}
+            role="signinButton"
           >
             {t("signin")}
           </Button>
-          <p style={styles.ordiv}>
+          <p style={styles.orDivider}>
             ____________________{t("or")}_________________________
           </p>
         </div>
 
         <div style={styles.footer}>
-          <div style={styles.googlediv1}>
+          <div style={styles.googleContainer}>
             <GoogleButton
-              style={styles.GoogleButton}
+              style={styles.googleButton}
               onClick={() => {
                 console.log("Google button clicked");
               }}
             />
           </div>
-          <div style={styles.img2div1}>
+          <div style={styles.appleImageContainer} aria-describedby="appleimage">
             <a href="/">
-              <img src={apple} alt="logo" style={styles.img2} />
+              <img src={apple} alt="logo" style={styles.appleImage} />
             </a>
           </div>
         </div>
       </form>
-      <p style={styles.linkdiv}>
+      <p style={styles.signupLinkContainer}>
         {t("noaccount")} <Link to="/">{t("signup")}</Link>
       </p>
-      <div>
-        <img src={leaf} alt="logo" style={styles.img1} />
+      <div aria-describedby="leafimage">
+        <img src={leaf} alt="logo" style={styles.leafImage} />
       </div>
     </div>
   );
 };
 const styles = {
-  heading1: {
+  title: {
     paddingBottom: "10px",
     fontFamily: "Arima",
   },
 
-  heading2: {
+  instruction: {
     fontFamily: "Calibri",
   },
 
-  img1: {
+  leafImage: {
     height: "90%",
     width: "50%",
     position: "absolute",
@@ -214,30 +220,30 @@ const styles = {
     overflow: "hidden",
   },
 
-  img2: {
+  appleImage: {
     height: "50px",
     paddingLeft: "15px",
     width: "270px",
   },
 
-  box: {
+  inputBox: {
     height: 50,
     width: "500px",
     paddingBottom: "50px",
   },
 
-  error: {
+  errorText: {
     display: "block",
     textAlign: "left",
     color: "red",
     textOverflow: "hidden",
   },
 
-  subcontainer: {
+  innerContainer: {
     paddingLeft: "100px",
   },
 
-  signinbutton: {
+  signinButton: {
     width: 500,
     height: "50px",
     backgroundColor: "green",
@@ -247,51 +253,41 @@ const styles = {
     display: "flex",
   },
 
-  googlediv1: {
+  googleContainer: {
     paddingLeft: "100px",
   },
 
-  img2div1: {
+  appleImageContainer: {
     paddingTop: "1px",
   },
 
-  GoogleButton: {
+  googleButton: {
     borderRadius: "0px",
     paddingLeft: "5px",
   },
 
-  ordiv: {
+  orDivider: {
     paddingLeft: "80px",
     paddingBottom: "20px",
   },
 
-  linkdiv: {
+  signupLinkContainer: {
     paddingLeft: "250px",
   },
 
-  buttondiv: {
+  buttonContainer: {
     paddingLeft: "100px",
   },
 
-  heading1div: {
+  header: {
     display: "flex",
   },
 
-  lngbutton: {
+  LanguageToggle: {
     paddingTop: "15px",
-    // paddingLeft: "200px",
   },
 
-  french: {
-    margin: "10px",
-    backgroundColor: "green",
-  },
-
-  english: {
-    backgroundColor: "green",
-  },
-
-  welcome: {
+  welcomeText: {
     width: "400px",
   },
 };

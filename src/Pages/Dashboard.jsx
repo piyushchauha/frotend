@@ -12,26 +12,21 @@ import Button from "@mui/material/Button";
 //React-Router
 import { useNavigate } from "react-router-dom";
 
-
 export const Dashboard = () => {
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const email = useSelector((state) => state.user.email);
   const password = useSelector((state) => state.user.password);
-  
+
   const handle = (e) => {
     dispatch(logout());
     navigate("/");
   };
 
   return (
-    <Grid2 sx={styles.container}
-    >
-      <Grid2
-       sx={styles.subcontainer}
-      >
+    <Grid2 sx={styles.container}>
+      <Grid2 sx={styles.subcontainer}>
         {email && <h1>Email: {email}</h1>}
         {password && <h1>Password: {password}</h1>}
         <Button
@@ -47,29 +42,29 @@ export const Dashboard = () => {
     </Grid2>
   );
 };
-const styles={
-  container:{
-    display: 'flex',
-  flexDirection:"column",
-    alignItems:"center",
-    justifyContent:"center",
-    minHeight: "100vh", 
+const styles = {
+  container: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    minHeight: "100vh",
   },
-   subcontainer:{
-    display: 'flex',
-    flexDirection:"column",
-    alignItems:"center",
-    justifyContent:"center",
+  subcontainer: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
     border: "1px solid grey",
     borderRadius: "6px",
     height: "400px",
     width: "600px",
-   },
-   logoutbutton:{
+  },
+  logoutbutton: {
     width: 500,
     maxWidth: "100%",
     height: "50px",
     paddingBottom: "14px",
     backgroundColor: "green",
   },
-}
+};

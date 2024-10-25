@@ -22,7 +22,6 @@ import Store from "Store/Store";
 
 const persistor = persistStore(Store);
 
-
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider loading={null} store={Store}>
@@ -31,6 +30,5 @@ root.render(
     </PersistGate>
   </Provider>
 );
-
 
 reportWebVitals();

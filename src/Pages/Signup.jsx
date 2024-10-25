@@ -47,8 +47,8 @@ export const Signup = () => {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [nameError, setnameError] = useState("");
-  
-  const language=useSelector((state)=>state.user.language);
+
+  const language = useSelector((state) => state.user.language);
 
   useEffect(() => {
     i18n.changeLanguage(language);
@@ -107,96 +107,105 @@ export const Signup = () => {
     } else if (newlanguage === "fr") {
       i18n.changeLanguage("fr");
     }
-   dispatch(setlanguage(newlanguage));
-
+    dispatch(setlanguage(newlanguage));
   };
   return (
-    <div style={styles.container}>
-      <div style={styles.subcontainer}>
+    <div role="form" style={styles.container}>
+      <div style={styles.innercontainer}>
         <form onSubmit={handleSubmit}>
-          <div style={styles.heading1}>
-            <div style={styles.lngbutton}>
-              <div style={styles.welcome}>
-                <h1 style={styles.heading2}>{t("started")}</h1>
+          <div style={styles.header}>
+            <div style={styles.languageSection}>
+              <div style={styles.welcomeText}>
+                <h1 style={styles.title}>{t("started")}</h1>
               </div>
-              <div style={styles.toggle}>
+              <div style={styles.LanguageToggle}>
                 <ToggleButtonGroup
                   color="primary"
                   value={language}
                   exclusive
                   onChange={handlelanguage}
-                  aria-label="Platform"
+                  aria-label="LanguageToggle"
                 >
                   <ToggleButton value="en">English</ToggleButton>
                   <ToggleButton value="fr">French</ToggleButton>
                 </ToggleButtonGroup>
               </div>
             </div>
-            <Box sx={styles.box}>
+            <Box sx={styles.inputBox}>
               <TextField
                 fullWidth
                 label={t("name")}
+                aria-label="name"
                 value={name}
                 onChange={handlenameChange}
               />
-              <span style={styles.error}>{nameError}</span>
+              <span aria-label="nameerror" style={styles.errorText}>
+                {nameError}
+              </span>
             </Box>
 
-            <Box sx={styles.box}>
+            <Box sx={styles.inputBox}>
               <TextField
                 fullWidth
                 label={t("email")}
+                aria-label="email"
                 value={email}
                 onChange={handleEmailChange}
               />
-              <span style={styles.error}>{emailError}</span>
+              <span aria-label="emailerror" style={styles.errorText}>
+                {emailError}
+              </span>
             </Box>
-            <Box sx={styles.box}>
+            <Box sx={styles.inputBox}>
               <TextField
                 fullWidth
                 label={t("password")}
+                aria-label="password"
                 type="password"
                 value={password}
                 onChange={handlePasswordChange}
               />
-              <span style={styles.error}>{passwordError}</span>
+              <span aria-label="passworderror" style={styles.errorText}>
+                {passwordError}
+              </span>
             </Box>
           </div>
 
-          <div style={styles.buttondiv}>
+          <div style={styles.buttonContainer}>
             <Button
               type="submit"
               variant="contained"
               size="large"
-              sx={styles.signupbutton}
+              role="signupButton"
+              sx={styles.signupButton}
             >
               {t("signup")}
             </Button>
-            <p style={styles.ordiv}>
+            <p style={styles.dividerText}>
               ____________________{t("or")}_________________________
             </p>
           </div>
           <div style={styles.footer}>
-            <div style={styles.googlediv}>
+            <div style={styles.googleContainer}>
               <GoogleButton
-                style={styles.GoogleButton}
+                style={styles.googleButton}
                 onClick={() => {
                   console.log("Google button clicked");
                 }}
               />
             </div>
-            <div style={styles.img2div1}>
+            <div style={styles.appleImageContainer}>
               <a href="/">
-                <img src={apple} alt="logo" style={styles.img2} />
+                <img src={apple} alt="logo" style={styles.appleImage} />
               </a>
             </div>
           </div>
-          <p style={styles.linkdiv}>
+          <p style={styles.signinLink}>
             {t("noaccount")}
             <Link to="/signin"> {t("signin")}</Link>
           </p>
           <div>
-            <img src={leaf} alt="logo" style={styles.img1} />
+            <img src={leaf} alt="logo" style={styles.leafImage} />
           </div>
         </form>
       </div>
@@ -211,45 +220,47 @@ const styles = {
     height: "610px ",
   },
 
-  subcontainer: {
+  innercontainer: {
     flex: "2",
     justifyContent: "center",
     height: "700px",
     width: "1300px",
     paddingTop: "40px",
   },
-  heading1: {
+
+  header: {
     paddingLeft: "100px",
   },
-  heading2: {
+
+  title: {
     paddingBottom: "10px",
     fontFamily: "Calibri",
   },
-  box: {
+  inputBox: {
     height: 50,
     width: 500,
     maxWidth: "100%",
     paddingBottom: "50px",
   },
 
-  error: {
+  errorText: {
     display: "block",
     textAlign: "left",
     color: "red",
     textOverflow: "hidden",
   },
 
-  buttondiv: {
+  buttonContainer: {
     paddingLeft: "100px",
   },
 
-  signupbutton: {
+  signupButton: {
     width: 500,
     height: "50px",
     backgroundColor: "green",
   },
 
-  ordiv: {
+  dividerText: {
     paddingLeft: "80px",
     paddingBottom: "20px",
   },
@@ -258,29 +269,29 @@ const styles = {
     display: "flex",
   },
 
-  googlediv: {
+  googleContainer: {
     paddingLeft: "100px",
   },
 
-  GoogleButton: {
+  googleButton: {
     paddingLeft: "5px",
   },
 
-  img2div1: {
+  appleImageContainer: {
     paddingTop: "1px",
   },
 
-  img2: {
+  appleImage: {
     height: "49px",
     paddingLeft: "15px",
     width: "270px",
   },
 
-  linkdiv: {
+  signinLink: {
     paddingLeft: "250px",
   },
 
-  img1: {
+  leafImage: {
     height: "95%",
     width: "50%",
     position: "absolute",
@@ -289,15 +300,15 @@ const styles = {
     overflow: "hidden",
   },
 
-  lngbutton: {
+  languageSection: {
     display: "flex",
   },
 
-  toggle: {
+  LanguageToggle: {
     paddingTop: "20px",
   },
 
-  welcome: {
+  welcomeText: {
     width: "400px",
   },
 };
