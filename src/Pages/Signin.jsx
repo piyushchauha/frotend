@@ -1,5 +1,5 @@
 //React
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect ,useRef} from "react";
 
 //Mui
 import Box from "@mui/material/Box";
@@ -38,10 +38,14 @@ import { useTranslation } from "react-i18next";
 
 //App.css
 import "App.css";
+import { changeLanguage } from "i18next";
 
 export const Signin = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const emailRef=useRef(null);
+  const passwordRef=useRef(null);
 
   const { t } = useTranslation();
 
@@ -110,7 +114,28 @@ export const Signin = () => {
 
     dispatch(setlanguage(newlanguage));
   };
-
+  const handlekey=(e,RefUp,RefDown)=>{
+    switch(e.key){
+     case"ArrowUp":
+     RefUp.current.focus();
+     break;
+     case "ArrowDown":
+     RefDown.current.focus();
+     break;
+     default:
+       break;
+    }
+   };
+   const handlelanguagekey=(e)=>{
+    if(e.key==="ArrowRight"){
+      changeLanguage("fr");
+    }
+    else if(e.key==="ArrowLeft"){
+      changeLanguage("en");
+    }
+    handlekey(e,null,emailRef); 
+   };
+  
   return (
     <div role="form">
       <form onSubmit={handleSubmit}>
@@ -120,13 +145,17 @@ export const Signin = () => {
               <h1 style={styles.title}>{t("WelcomeBack")}</h1>
             </div>
             <div style={styles.LanguageToggle}>
-              <ToggleButtonGroup
-                color="primary"
-                value={language}
-                exclusive
-                onChange={handlelanguage}
-                aria-label="LanguageToggle"
-              >
+            <ToggleButtonGroup
+                  color="primary"
+                  value={language}
+                  exclusive
+                  onChange={handlelanguage}
+                  aria-label="LanguageToggle"
+                  tabIndex={0}
+                  onKeyDown={(e)=>{
+                  handlelanguagekey(e);}
+                  }
+                >
                 <ToggleButton value="en">English</ToggleButton>
                 <ToggleButton value="fr">French</ToggleButton>
               </ToggleButtonGroup>
@@ -140,6 +169,8 @@ export const Signin = () => {
               aria-label="email"
               value={email}
               onChange={handleEmailChange}
+              inputRef={emailRef}
+              onKeyDown={(e)=>handlekey(e,emailRef,passwordRef)}
             />
             <span style={styles.errorText} aria-label="emailerror">
               {emailError}
@@ -153,6 +184,8 @@ export const Signin = () => {
               type="password"
               value={password}
               onChange={handlePasswordChange}
+              inputRef={passwordRef}
+              onKeyDown={(e)=>handlekey(e,emailRef,passwordRef)}
             />
             <span style={styles.errorText} aria-label="passworderror">
               {passwordError}

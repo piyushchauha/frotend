@@ -1,5 +1,5 @@
 //React
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useRef } from "react";
 
 //Mui
 import Box from "@mui/material/Box";
@@ -34,10 +34,16 @@ import i18n from "Locales/i18n";
 
 //React-i18n
 import { useTranslation } from "react-i18next";
+import { changeLanguage } from "i18next";
 
 export const Signup = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+
+  const emailRef=useRef(null);
+  const nameRef=useRef(null);
+  const passwordRef=useRef(null);
 
   const { t } = useTranslation();
 
@@ -109,6 +115,29 @@ export const Signup = () => {
     }
     dispatch(setlanguage(newlanguage));
   };
+  const handlekey=(e,RefUp,RefDown)=>{
+   switch(e.key){
+    case"ArrowUp":
+    RefUp.current.focus();
+    break;
+    case "ArrowDown":
+    RefDown.current.focus();
+    break;
+    default:
+      break;
+   }
+  }
+  const handlelanguagekey=(e)=>{
+    if(e.key==="ArrowRight"){
+      changeLanguage("fr");
+    }
+    else if(e.key==="ArrowLeft"){
+      changeLanguage("en");
+    }
+    handlekey(e,null,nameRef);
+
+  }
+
   return (
     <div role="form" style={styles.container}>
       <div style={styles.innercontainer}>
@@ -125,6 +154,11 @@ export const Signup = () => {
                   exclusive
                   onChange={handlelanguage}
                   aria-label="LanguageToggle"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                   handlelanguagekey(e);
+                  
+                  }}
                 >
                   <ToggleButton value="en">English</ToggleButton>
                   <ToggleButton value="fr">French</ToggleButton>
@@ -138,6 +172,10 @@ export const Signup = () => {
                 aria-label="name"
                 value={name}
                 onChange={handlenameChange}
+                tabIndex={0}
+                inputRef={nameRef}
+                onKeyDown={(e)=>{handlekey(e,nameRef,emailRef)}}
+                
               />
               <span aria-label="nameerror" style={styles.errorText}>
                 {nameError}
@@ -151,6 +189,9 @@ export const Signup = () => {
                 aria-label="email"
                 value={email}
                 onChange={handleEmailChange}
+                inputRef={emailRef}
+                tabIndex={0}
+                onKeyDown={(e)=>{handlekey(e,nameRef,passwordRef)}}
               />
               <span aria-label="emailerror" style={styles.errorText}>
                 {emailError}
@@ -164,6 +205,9 @@ export const Signup = () => {
                 type="password"
                 value={password}
                 onChange={handlePasswordChange}
+                inputRef={passwordRef}
+                onKeyDown={(e)=>{handlekey(e,emailRef,passwordRef)}}
+
               />
               <span aria-label="passworderror" style={styles.errorText}>
                 {passwordError}
@@ -178,6 +222,7 @@ export const Signup = () => {
               size="large"
               role="signupButton"
               sx={styles.signupButton}
+             
             >
               {t("signup")}
             </Button>
