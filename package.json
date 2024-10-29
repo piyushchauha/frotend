@@ -16,6 +16,7 @@
     "i18next": "^23.16.2",
     "primereact": "^10.8.4",
     "private-route-react": "^1.1.12",
+    "prop-types": "^15.8.1",
     "react": "^18.3.1",
     "react-apple-login": "^1.1.6",
     "react-dom": "^18.3.1",
@@ -30,6 +31,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "format": "prettier --write",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -58,10 +60,13 @@
   "devDependencies": {
     "@eslint/js": "^9.13.0",
     "eslint": "^8.57.1",
+    "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-react": "^7.37.2",
     "eslint-plugin-react-hooks": "^5.0.0",
-    "globals": "^15.11.0"
+    "globals": "^15.11.0",
+    "prettier": "^3.3.3"
   }
 }

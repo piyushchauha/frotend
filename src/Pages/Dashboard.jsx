@@ -1,27 +1,27 @@
 //React
-import React from "react";
+import React from 'react';
 
 //React-Redux
-import { useDispatch, useSelector } from "react-redux";
-import { logout } from "Store/UserSlice";
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from 'Store/UserSlice';
 
 //Mui
-import { Grid2 } from "@mui/material";
-import Button from "@mui/material/Button";
+import { Grid2 } from '@mui/material';
+import Button from '@mui/material/Button';
 
 //React-Router
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 export const Dashboard = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const email = useSelector((state) => state.user.email);
-  const password = useSelector((state) => state.user.password);
+  const email = useSelector(state => state.user.email);
+  const password = useSelector(state => state.user.password);
 
-  const handle = (e) => {
-    dispatch(logout());
-    navigate("/");
+  const handle = e => {
+    dispatch(logout(e));
+    navigate('/');
   };
 
   return (
@@ -44,27 +44,27 @@ export const Dashboard = () => {
 };
 const styles = {
   container: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    minHeight: "100vh",
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    minHeight: '100vh',
   },
   subcontainer: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    border: "1px solid grey",
-    borderRadius: "6px",
-    height: "400px",
-    width: "600px",
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    border: '1px solid grey',
+    borderRadius: '6px',
+    height: '400px',
+    width: '600px',
   },
   logoutbutton: {
     width: 500,
-    maxWidth: "100%",
-    height: "50px",
-    paddingBottom: "14px",
-    backgroundColor: "green",
+    maxWidth: '100%',
+    height: '50px',
+    paddingBottom: '14px',
+    backgroundColor: 'green',
   },
 };

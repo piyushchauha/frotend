@@ -3,26 +3,21 @@
     "browser": true,
     "es2021": true
   },
-  "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended"
-  ],
+  "extends": ["eslint:recommended", "plugin:react/recommended", "prettier"],
+  "plugins": ["prettier"],
   "parserOptions": {
-    "ecmaVersion": "latest",
+    "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "globals": {
-    "browser": true
-  },
-  "plugins": [
-    "react"
-  ],
-  "overrides": [
-    {
-      "files": ["**/*.{js,mjs,cjs,jsx}"],
-      "rules": {        
-        "semi": ["error", "always"]        
-      }
-    }
-  ]
+  "rules": {
+    "quotes": ["error", "single"],
+    "semi": ["error", "always"],
+    "eqeqeq": "error",
+    "react/jsx-filename-extension": [
+      "error",
+      { "extensions": [".jsx", ".js"] }
+    ],
+    "react/prop-types": "off",
+    "prettier/prettier": "error"
+  }
 }

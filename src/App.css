@@ -1,6 +1,6 @@
 @font-face {
-  font-family: "Arima";
-  src: url("./Assets/Fonts/Arima/Arima-VariableFont_wght.ttf");
+  font-family: 'Arima';
+  src: url('./Assets/Fonts/Arima/Arima-VariableFont_wght.ttf');
   font-weight: normal;
   font-style: normal;
 }
