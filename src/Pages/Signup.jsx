@@ -256,6 +256,7 @@ export const Signup = () => {
     </div>
   );
 };
+
 const styles = {
   container: {
     display: 'flex',
