@@ -314,6 +314,7 @@ const styles = {
 
   footer: {
     display: 'flex',
+    paddingRight: '200px',
   },
 
   googleContainer: {
@@ -331,7 +332,7 @@ const styles = {
   appleImage: {
     height: '49px',
     paddingLeft: '15px',
-    width: '270px',
+    width: '260px',
   },
 
   signinLink: {

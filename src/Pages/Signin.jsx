@@ -258,7 +258,7 @@ const styles = {
   appleImage: {
     height: '50px',
     paddingLeft: '15px',
-    width: '270px',
+    width: '260px',
   },
 
   inputBox: {
