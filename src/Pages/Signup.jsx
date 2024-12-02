@@ -76,8 +76,30 @@ export const Signup = () => {
     setPasswordError(validatePassword(value) ? '' : t('InvalidPasswordError'));
   };
 
+  const handleback = async e => {
+    if (e) e.preventDefault();
+    const addUser = { name, email, password };
+    const response = await fetch('http://localhost:5000', {
+      method: 'POST',
+      body: JSON.stringify(addUser),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const result = await response.json();
+
+    if (!response.OK) {
+      console.log(result.error);
+    }
+    if (response.OK) {
+      console.log(result);
+    }
+  };
+
   const handleSubmit = e => {
     e.preventDefault();
+
     let valid = true;
     if (!name) {
       setnameError(t('EmptyNameError'));
@@ -104,6 +126,7 @@ export const Signup = () => {
       dispatch(signup({ name, email, password }));
       navigate('/signin');
     }
+    handleback();
   };
 
   const handlelanguage = (event, newlanguage) => {

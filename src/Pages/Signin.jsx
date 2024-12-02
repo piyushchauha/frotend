@@ -7,6 +7,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { ToggleButton } from '@mui/material';
 import { ToggleButtonGroup } from '@mui/material';
+import Alert from '@mui/material/Alert';
 
 //React-router
 import { Link, useNavigate } from 'react-router-dom';
@@ -101,6 +102,7 @@ export const Signin = () => {
     if (Email === email && Password === password) {
       return navigate('/dashboard');
     } else {
+      <Alert severity="error">Invalid credentials.Please Signup</Alert>;
       return navigate('/');
     }
   };
