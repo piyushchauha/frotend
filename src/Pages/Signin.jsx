@@ -75,6 +75,26 @@ export const Signin = () => {
     setPasswordError(validatePassword(value) ? '' : t('InvalidPasswordError'));
   };
 
+  const handleback = async () => {
+  
+      const response = await fetch('http://localhost:5000/user/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      
+      const result = await response.json();
+
+     if (!response.ok) {
+       console.log(result.error);
+      } else {
+        console.log(result);
+        navigate("/dashboard");
+
+        
+    }
+  };
   const handleSubmit = e => {
     e.preventDefault();
     let valid = true;
@@ -97,6 +117,7 @@ export const Signin = () => {
 
     if (valid) {
       dispatch(signin({ email, password }));
+      handleback();
     }
 
     if (Email === email && Password === password) {
